@@ -1,6 +1,7 @@
 package com.example.loginmvp.data.repository;
 
 import com.example.loginmvp.data.entities.Product;
+import com.example.loginmvp.data.entities.Category;
 import com.example.loginmvp.data.network.AuthResponse;
 import com.example.loginmvp.data.network.LoginRequest;
 import com.example.loginmvp.data.network.RegisterRequest;
@@ -25,5 +26,16 @@ public interface ApiService {
 
     @GET("/api/products/{id}")
     Call<Product> getProductById(@Path("id") Long id);
+
+    @GET("/api/categories")
+    Call<List<Category>> getCategories();
+
+
+
+    @GET("/api/products/category/{categoryName}")
+    Call<List<Product>> getProductsByCategory(@Path("categoryName") String categoryName);
+
+    @GET("/api/products/search/{keyword}")
+    Call<List<Product>> searchProducts(@Path("keyword") String keyword);
 
 }

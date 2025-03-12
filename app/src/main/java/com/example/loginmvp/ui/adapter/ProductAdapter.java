@@ -37,27 +37,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtName.setText(product.getName());
         holder.txtPrice.setText("$" + product.getPrice());
 
-        // Thay đổi URL để Glide tải ảnh đúng cách
+        // Đảm bảo đường dẫn ảnh đầy đủ
         String imageUrl = BASE_URL + product.getThumbnail();
 
         Glide.with(holder.imgThumbnail.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.placeholder)  // Ảnh tạm nếu tải chậm
+                .placeholder(R.drawable.placeholder)  // Ảnh hiển thị trong lúc tải
                 .error(R.drawable.error_image)        // Ảnh lỗi nếu không tải được
                 .into(holder.imgThumbnail);
 
-        // 💡 Thêm sự kiện click để mở ProductDetailActivity
+        // Mở ProductDetailActivity khi click vào sản phẩm
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-            intent.putExtra("product_id", product.getId()); // Chỉ truyền ID sản phẩm
+            intent.putExtra("product_id", product.getId()); // Truyền ID sản phẩm
             v.getContext().startActivity(intent);
         });
     }
 
-
-
     @Override
-    public int getItemCount() { return productList.size(); }
+    public int getItemCount() {
+        return productList != null ? productList.size() : 0;
+    }
+
+    // 🆕 Phương thức cập nhật danh sách sản phẩm
+    public void updateData(List<Product> newProducts) {
+        this.productList = newProducts;
+        notifyDataSetChanged();
+    }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView txtName, txtPrice;

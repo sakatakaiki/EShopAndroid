@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/light_gray">
 
     <ImageView
         android:id="@+id/imgProductDetail"
@@ -32,5 +33,18 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:paddingTop="8dp"/>
+
+    <ImageView
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:src="@drawable/ic_favorite_border"
+        android:contentDescription="Favorite" />
+
+
+
 
 </LinearLayout>
