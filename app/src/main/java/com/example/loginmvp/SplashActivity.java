@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.loginmvp.R;
+import com.example.loginmvp.ui.view.HomeActivity;
 import com.example.loginmvp.ui.view.RegisterActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DELAY);

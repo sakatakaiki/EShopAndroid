@@ -17,6 +17,9 @@
             android:name=".ui.view.LoginActivity"
             android:exported="true"/>
         <activity
+            android:name=".ui.view.CartActivity"
+            android:exported="true"/>
+        <activity
             android:name=".ui.view.HomeActivity"
             android:exported="true"/>
         <activity

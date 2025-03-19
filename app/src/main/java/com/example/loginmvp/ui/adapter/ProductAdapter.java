@@ -15,7 +15,9 @@ import com.example.loginmvp.R;
 import com.example.loginmvp.data.entities.Product;
 import com.example.loginmvp.ui.view.ProductDetailActivity;
 
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
@@ -36,6 +38,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product product = productList.get(position);
         holder.txtName.setText(product.getName());
         holder.txtPrice.setText("$" + product.getPrice());
+
+        holder.txtSold.setText(product.getSold() + " sold");
+
+        DecimalFormat df = new DecimalFormat("0.0");
+        holder.txtRating.setText(df.format(product.getRating()));
+
 
         // Đảm bảo đường dẫn ảnh đầy đủ
         String imageUrl = BASE_URL + product.getThumbnail();
@@ -66,7 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView txtName, txtPrice;
+        TextView txtName, txtPrice, txtSold, txtRating;
         ImageView imgThumbnail;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -74,6 +82,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtName = itemView.findViewById(R.id.txtProductName);
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
             imgThumbnail = itemView.findViewById(R.id.imgProduct);
+            txtSold = itemView.findViewById(R.id.txtSold);
+            txtRating = itemView.findViewById(R.id.txtRating);
         }
     }
 }

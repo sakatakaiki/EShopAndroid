@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.example.loginmvp.R;
 import com.example.loginmvp.data.database.AppDatabase;
 import com.example.loginmvp.data.entities.Product;
@@ -28,7 +30,9 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewFavorites);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
 
         db = AppDatabase.getInstance(getContext());
         loadFavorites();

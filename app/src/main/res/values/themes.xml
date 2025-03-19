@@ -3,7 +3,12 @@
     <style name="Base.Theme.LoginMVP" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/aquamain</item>
+        <item name="bottomNavigationStyle">@style/BottomNavStyle</item>
     </style>
 
     <style name="Theme.LoginMVP" parent="Base.Theme.LoginMVP" />
+    <style name="BottomNavStyle">
+        <item name="backgroundTint">@color/aquamain</item>
+    </style>
 </resources>

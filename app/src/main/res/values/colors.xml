@@ -5,4 +5,10 @@
     <color name="bg_splash">#2196F3</color> <!-- Màu xanh dương -->
     <color name="dark_gray">#555555</color> <!-- Màu xám đậm -->
     <color name="light_gray">#F5F5F5</color>
+    <color name="gold">#FFD700</color>
+    <color name="aquamain">#56B6B6</color>
+    <color name="aquahover">#3D8D8D</color>
+    <color name="light_orange">#FFA726</color>
+    <color name="bottom_nav_selected">#FFD700</color> <!-- Vàng -->
+    <color name="bottom_nav_unselected">#E0E0E0</color> <!-- Xám nhạt -->
 </resources>

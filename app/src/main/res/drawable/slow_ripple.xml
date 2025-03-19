@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/aquahover"
+    android:radius="50dp">  <!-- Bán kính lan tỏa -->
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/> <!-- Mask giúp hiệu ứng lan đều -->
+        </shape>
+    </item>
+</ripple>

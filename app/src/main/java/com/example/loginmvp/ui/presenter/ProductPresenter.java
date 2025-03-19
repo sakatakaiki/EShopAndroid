@@ -1,5 +1,6 @@
 package com.example.loginmvp.ui.presenter;
 
+import com.example.loginmvp.data.entities.Order;
 import com.example.loginmvp.data.entities.Product;
 import com.example.loginmvp.data.repository.ApiService;
 import com.example.loginmvp.data.repository.RetrofitClient;
@@ -34,4 +35,24 @@ public class ProductPresenter implements ProductContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void addToCart(Long userId, Long productId, int quantity) {
+        apiService.addToCart(userId, productId, quantity).enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    view.showMessage("Add Successfully!!");
+                } else {
+                    view.showError("Failed to add to cart!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                view.showError("Connection Error " + t.getMessage());
+            }
+        });
+    }
+
 }

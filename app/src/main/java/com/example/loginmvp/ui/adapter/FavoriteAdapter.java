@@ -34,6 +34,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.txtName.setText(product.getName());
         holder.txtPrice.setText("$" + product.getPrice());
         String imageUrl = BASE_URL + product.getThumbnail();
+        holder.txtRating.setText(String.valueOf(product.getRating()));
+        holder.txtSold.setText(product.getSold() + " sold");
 
         Glide.with(holder.imgThumbnail.getContext())
                 .load(imageUrl)
@@ -49,13 +51,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgThumbnail;
-        TextView txtName, txtPrice;
+        TextView txtName, txtPrice, txtRating, txtSold;;
 
         ViewHolder(View itemView) {
             super(itemView);
             imgThumbnail = itemView.findViewById(R.id.imgProduct);
             txtName = itemView.findViewById(R.id.txtProductName);
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtRating = itemView.findViewById(R.id.txtRating);
+            txtSold = itemView.findViewById(R.id.txtSold);
         }
     }
 }
