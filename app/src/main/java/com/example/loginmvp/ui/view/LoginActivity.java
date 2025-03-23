@@ -51,7 +51,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void onLoginSuccess(AuthResponse response) {
         if (response != null) {
             UserSession session = UserSession.getInstance(this);
-            session.saveUserSession((long) response.getId());
+            String role = response.getRole() != null ? response.getRole() : "user";
+            session.saveUserSession((long) response.getId(), role);
+
 
             Log.d("Login", "User ID lưu: " + session.getUserId());
             Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
