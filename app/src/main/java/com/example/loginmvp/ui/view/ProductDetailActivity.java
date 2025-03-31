@@ -102,11 +102,11 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductC
                             );
                             db.productDao().insert(favoriteProduct);
                             btnFavorite.setImageResource(R.drawable.ic_favorite_filled);
-                            Toast.makeText(this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Add to Favorite successfully!", Toast.LENGTH_SHORT).show();
                         } else {
                             db.productDao().delete(existingProduct);
                             btnFavorite.setImageResource(R.drawable.ic_favorite_border);
-                            Toast.makeText(this, "Đã xóa khỏi yêu thích", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Removed from Favorite", Toast.LENGTH_SHORT).show();
                         }
 
                         // **Hiệu ứng scale khi bấm nút**

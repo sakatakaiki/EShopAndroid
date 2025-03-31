@@ -86,4 +86,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtRating = itemView.findViewById(R.id.txtRating);
         }
     }
+
+    public void addMoreProducts(List<Product> moreProducts) {
+        int startPos = productList.size();
+        productList.addAll(moreProducts);
+        notifyItemRangeInserted(startPos, moreProducts.size());
+    }
+
 }

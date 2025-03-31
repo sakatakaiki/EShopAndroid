@@ -81,6 +81,7 @@ public class CartPresenter implements CartContract.Presenter {
                     view.showCartItems(Collections.emptyList());
                 } else {
                     view.showCartItems(orderItems);
+                    view.updateCartTitle(orderItems);
                 }
             }
 
@@ -91,5 +92,7 @@ public class CartPresenter implements CartContract.Presenter {
             }
         });
     }
+
+
 
 }

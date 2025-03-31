@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.loginmvp.R;
@@ -55,7 +56,7 @@ public class ChatFragment extends Fragment {
 
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(requireContext(), chatMessages, currentUserId);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(chatAdapter);
 
         chatRepository = new ChatRepository();
@@ -74,6 +75,9 @@ public class ChatFragment extends Fragment {
             }
         });
 
+
+
+
         return view;
     }
 
@@ -85,8 +89,10 @@ public class ChatFragment extends Fragment {
                         String role = document.getString("role");
 
                         if ("admin".equals(role)) {
+                            userSpinner.setVisibility(View.VISIBLE);
                             loadUserListForAdmin();
                         } else {
+                            userSpinner.setVisibility(View.GONE);
                             findAdminId();
                         }
                     }
@@ -110,6 +116,8 @@ public class ChatFragment extends Fragment {
                     }
                 });
     }
+
+
 
     private void setupUserSpinner(List<String> userEmails) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, userEmails);

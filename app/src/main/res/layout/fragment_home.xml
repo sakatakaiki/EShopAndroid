@@ -1,59 +1,93 @@
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@color/light_gray">
+    android:background="@color/light_aqua">
 
-    <!-- Thanh tìm kiếm và logo -->
-    <LinearLayout
+    <!-- Phần cố định: Thanh tìm kiếm & danh mục -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
+        android:background="@color/light_aqua"
+        app:liftOnScroll="false">
 
-        <ImageView
-            android:id="@+id/appLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/app_logo"
-            android:scaleType="fitCenter"
-            android:contentDescription="App Logo"
-            android:paddingEnd="8dp"/>
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
+        <!-- Thanh tìm kiếm và logo -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:queryHint="Tìm kiếm sản phẩm..."
-            app:iconifiedByDefault="false"/>
-        <ImageView
-            android:id="@+id/imgCart"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_cart"
-            android:contentDescription="Giỏ hàng"
-            android:scaleType="fitCenter"
-            android:paddingEnd="8dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:background="@color/light_aqua">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/appLogo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/app_logo"
+                android:scaleType="fitCenter"
+                android:contentDescription="App Logo"
+                android:paddingEnd="8dp"/>
 
-    <!-- RecyclerView hiển thị danh mục -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="4dp"/>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:queryHint="Tìm kiếm sản phẩm..."
+                app:iconifiedByDefault="false"
+                android:background="@android:color/transparent"/>
 
-    <!-- RecyclerView hiển thị sản phẩm -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProducts"
+            <ImageView
+                android:id="@+id/imgCart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_cart"
+                android:contentDescription="Giỏ hàng"
+                android:scaleType="fitCenter"
+                android:paddingEnd="8dp"/>
+        </LinearLayout>
+
+        <!-- RecyclerView hiển thị danh mục -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:layout_marginTop="4dp"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Phần cuộn: Slider & danh sách sản phẩm -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"/>
-</LinearLayout>
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Slider hình ảnh -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerSlider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- RecyclerView hiển thị sản phẩm -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProducts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

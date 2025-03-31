@@ -11,4 +11,8 @@
     <color name="light_orange">#FFA726</color>
     <color name="bottom_nav_selected">#FFD700</color> <!-- Vàng -->
     <color name="bottom_nav_unselected">#E0E0E0</color> <!-- Xám nhạt -->
+    <color name="light_aqua">#F0FBFB</color> <!-- Màu sáng hơn aquamain -->
+    <color name="gray">#D3D3D3</color>
+    <color name="facebook_blue">#1877F2</color>
+    <color name="purple">#9C27B0</color>
 </resources>

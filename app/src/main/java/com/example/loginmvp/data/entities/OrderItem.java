@@ -7,6 +7,7 @@ public class OrderItem {
     private int quantity;
     private double price;
     private String productName;
+    private String productThumbnail;
 
     public OrderItem(Long orderId, Long productId, int quantity, double price) {
         this.orderId = orderId;
@@ -37,5 +38,9 @@ public class OrderItem {
 
     public String getProductName() {
         return productName;
+    }
+
+    public String getProductThumbnail() {
+        return productThumbnail;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.loginmvp.R;
@@ -16,8 +17,9 @@ import com.example.loginmvp.ui.presenter.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
     private EditText edtEmail, edtPassword;
-    private Button btnLogin, btnGoToRegister;
+    private Button btnLogin;
     private LoginPresenter presenter;
+    private TextView txtGoToRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnGoToRegister = findViewById(R.id.btnGoToRegister);
+        txtGoToRegister = findViewById(R.id.txtGoToRegister);
 
         presenter = new LoginPresenter(this);
 
@@ -41,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 Toast.makeText(this, "Vui lòng nhập email và mật khẩu!", Toast.LENGTH_SHORT).show();
             }
         });
-        btnGoToRegister.setOnClickListener(v -> {
+        txtGoToRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
 
             Log.d("Login", "User ID lưu: " + session.getUserId());
-            Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sign in successfully!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();

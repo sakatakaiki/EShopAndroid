@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.loginmvp.R;
@@ -11,8 +12,9 @@ import com.example.loginmvp.ui.presenter.RegisterContract;
 import com.example.loginmvp.ui.presenter.RegisterPresenter;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterContract.View {
-    private EditText edtEmail, edtPassword;
-    private Button btnRegister, btnGoToLogin;
+    private EditText edtEmail, edtPassword, edtConfirmPassword;
+    private Button btnRegister;
+    private TextView txtGoToLogin;
     private RegisterPresenter presenter;
 
     @Override
@@ -23,21 +25,29 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnRegister = findViewById(R.id.btnRegister);
-        btnGoToLogin = findViewById(R.id.btnGoToLogin);
+        edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
+        txtGoToLogin = findViewById(R.id.txtGoToLogin);
 
         presenter = new RegisterPresenter(this);
 
         btnRegister.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
+            String confirmPassword = edtConfirmPassword.getText().toString().trim();
 
-            if (!email.isEmpty() && !password.isEmpty()) {
-                presenter.register(email, password);
-            } else {
-                Toast.makeText(this, "Vui lòng nhập email và mật khẩu!", Toast.LENGTH_SHORT).show();
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            presenter.register(email, password);
         });
-        btnGoToLogin.setOnClickListener(v -> {
+        txtGoToLogin.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -46,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @Override
     public void onRegisterSuccess() {
-        Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }

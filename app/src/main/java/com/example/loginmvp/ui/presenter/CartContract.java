@@ -9,6 +9,8 @@ public interface CartContract {
     interface View {
         void showCartItems(List<OrderItem> orderItems);
         void showMessage(String message);
+
+        void updateCartTitle(List<OrderItem> cartItems);
     }
 
     interface Presenter {

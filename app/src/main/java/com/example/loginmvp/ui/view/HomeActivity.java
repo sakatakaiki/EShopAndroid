@@ -1,6 +1,9 @@
 package com.example.loginmvp.ui.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.loginmvp.R;
@@ -17,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         // Gán giá trị cho bottomNavigationView trước khi sử dụng
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -48,11 +52,32 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        // Hiển thị HomeFragment mặc định
-        if (savedInstanceState == null) {
+        handleIntent(getIntent(), savedInstanceState);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent); // Cập nhật Intent mới nhất
+        handleIntent(intent, null); // Xử lý Intent mới
+    }
+
+    private void handleIntent(Intent intent, Bundle savedInstanceState) {
+        boolean openChat = intent.getBooleanExtra("openChat", false);
+        Log.d("HomeActivity", "Handling intent with openChat = " + openChat);
+
+        if (openChat) {
+            openChatFragment();
+            bottomNavigationView.post(() -> bottomNavigationView.setSelectedItemId(R.id.nav_chat));
+        } else if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
         }
+    }
+    private void openChatFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new ChatFragment())
+                .commit();
     }
 }

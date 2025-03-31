@@ -2,6 +2,8 @@ package com.example.loginmvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +23,21 @@ import com.example.loginmvp.data.entities.Product;
 import com.example.loginmvp.data.session.UserSession;
 import com.example.loginmvp.ui.adapter.CategoryAdapter;
 import com.example.loginmvp.ui.adapter.ProductAdapter;
+import com.example.loginmvp.ui.adapter.SliderAdapter;
 import com.example.loginmvp.ui.presenter.HomeContract;
 import com.example.loginmvp.ui.presenter.HomePresenter;
 import com.example.loginmvp.ui.view.CartActivity;
 import com.example.loginmvp.ui.view.LoginActivity;
 import com.example.loginmvp.ui.view.ProductDetailActivity;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 
 public class HomeFragment extends Fragment implements HomeContract.View {
@@ -40,6 +48,12 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private HomePresenter presenter;
     private ImageView imgCart;
     private String selectedCategoryName = null;
+    private ViewPager2 viewPagerSlider;
+    private Handler handler = new Handler(Looper.getMainLooper());
+
+    private Runnable runnable;
+    private int currentPage = 0;
+    private List<Integer> imageList;
 
     @Nullable
     @Override
@@ -53,8 +67,23 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         recyclerViewProducts = view.findViewById(R.id.recyclerViewProducts);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerViewProducts.setLayoutManager(layoutManager);
+        recyclerViewProducts.setNestedScrollingEnabled(false);
+        viewPagerSlider = view.findViewById(R.id.viewPagerSlider);
+        recyclerViewProducts.setItemViewCacheSize(20);
+        recyclerViewProducts.setHasFixedSize(true);
 
 
+
+        // Danh sách ảnh
+        imageList = Arrays.asList(R.drawable.slider_1, R.drawable.slider_2, R.drawable.slider_3);
+
+        // Khởi tạo Adapter
+        SliderAdapter sliderAdapter = new SliderAdapter(getContext(), imageList);
+        viewPagerSlider.setAdapter(sliderAdapter);
+
+
+        // Auto chuyển slide
+        autoSlideImages();
 
 
 
@@ -78,6 +107,25 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
         return view;
     }
+
+    private void autoSlideImages() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(5000);
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            if (currentPage == imageList.size()) currentPage = 0;
+                            viewPagerSlider.setCurrentItem(currentPage++, true);
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }).start();
+    }
+
 
     private void setupSearch() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -107,18 +155,51 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     }
 
 
+//    @Override
+//    public void showProducts(List<Product> products) {
+//        if (productAdapter == null) {
+//            productAdapter = new ProductAdapter(products);
+//            recyclerViewProducts.setAdapter(productAdapter);
+//        } else {
+//            productAdapter.updateData(products); // Cập nhật sản phẩm mà không tạo lại adapter
+//        }
+//    }
+
     @Override
     public void showProducts(List<Product> products) {
+        if (products == null || products.isEmpty()) return;
+
+        // Tạo danh sách chỉ lấy 20 sản phẩm đầu tiên
+        List<Product> visibleProducts = new ArrayList<>(products.subList(0, Math.min(20, products.size())));
+
         if (productAdapter == null) {
-            productAdapter = new ProductAdapter(products);
+            productAdapter = new ProductAdapter(visibleProducts);
             recyclerViewProducts.setAdapter(productAdapter);
         } else {
-            productAdapter.updateData(products); // Cập nhật sản phẩm mà không tạo lại adapter
+            productAdapter.updateData(visibleProducts);
+        }
+
+        // Load tiếp sản phẩm còn lại sau 1 khoảng delay
+        new Handler(Looper.getMainLooper()).postDelayed(() -> loadMoreProducts(products), 500);
+    }
+
+    private void loadMoreProducts(List<Product> allProducts) {
+        if (allProducts.size() > 20) {
+            List<Product> remainingProducts = allProducts.subList(20, allProducts.size());
+            productAdapter.addMoreProducts(remainingProducts);
         }
     }
+
+
 
     @Override
     public void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        handler.removeCallbacks(runnable);
     }
 }

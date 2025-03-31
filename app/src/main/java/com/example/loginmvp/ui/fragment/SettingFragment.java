@@ -42,9 +42,9 @@ public class SettingFragment extends Fragment {
 
     private void updateButton() {
         if (userSession.isLoggedIn()) {
-            btnAuth.setText("Đăng xuất");
+            btnAuth.setText("Logout");
         } else {
-            btnAuth.setText("Đăng nhập");
+            btnAuth.setText("Login");
         }
     }
 

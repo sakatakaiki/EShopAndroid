@@ -1,7 +1,7 @@
 package com.example.loginmvp.data.entities;
 
 public class User {
-    private int id;  // Thêm id
+    private int id;
     private String email;
     private String role;
 
