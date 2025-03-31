@@ -2,17 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="bg_splash">#2196F3</color> <!-- Màu xanh dương -->
-    <color name="dark_gray">#555555</color> <!-- Màu xám đậm -->
+    <color name="bg_splash">#2196F3</color>
+    <color name="dark_gray">#555555</color>
     <color name="light_gray">#F5F5F5</color>
     <color name="gold">#FFD700</color>
     <color name="aquamain">#56B6B6</color>
     <color name="aquahover">#3D8D8D</color>
     <color name="light_orange">#FFA726</color>
-    <color name="bottom_nav_selected">#FFD700</color> <!-- Vàng -->
-    <color name="bottom_nav_unselected">#E0E0E0</color> <!-- Xám nhạt -->
-    <color name="light_aqua">#F0FBFB</color> <!-- Màu sáng hơn aquamain -->
+    <color name="bottom_nav_selected">#FFD700</color>
+    <color name="bottom_nav_unselected">#E0E0E0</color>
+    <color name="light_aqua">#F0FBFB</color>
     <color name="gray">#D3D3D3</color>
     <color name="facebook_blue">#1877F2</color>
     <color name="purple">#9C27B0</color>
+    <color name="red_dark">#D32F2F</color>
+    <color name="red_light">#E57373</color>
+    <color name="deep_orange">#D84315</color>
+    <color name="orange_light">#F57C00</color>
+    <color name="light_yellow">#FFEB3B</color>
 </resources>
